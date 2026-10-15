@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <style>
+    :root { color: #000; }
+    @media (prefers-color-scheme: dark) {
+      :root { color: #fff; }
+    }
+  </style>
+  <g transform="translate(0 32) scale(1 -1)" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M23.257 3.847h-18.275v18.275h18.275Z M27.825 10.701H9.55v18.275h18.275Z"/>
+    <path d="M4.9811 22.1228l4.569 6.853 M23.2565 22.1228l4.569 6.853 M4.9811 3.8474l4.569 6.853 M23.2565 3.8474l4.569 6.853"/>
+    <path transform="translate(4.9811 12.9851)" d="M0 0C0 5.047 4.091 9.138 9.138 9.138C14.184 9.138 18.275 5.047 18.275 0C18.275-5.047 14.184-9.138 9.138-9.138C4.091-9.138 0-5.047 0 0Z"/>
+    <path transform="translate(9.5499 19.8384)" d="M0 0C0 5.047 4.091 9.138 9.138 9.138C14.184 9.138 18.275 5.047 18.275 0C18.275-5.047 14.184-9.138 9.138-9.138C4.091-9.138 0-5.047 0 0Z"/>
+  </g>
+</svg>

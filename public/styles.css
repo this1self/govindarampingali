@@ -38,6 +38,9 @@ button:active { background: rgba(255, 255, 255, .12); }
 #animationHelp .control-action.control-row { display: flex; }
 .touch-stepper { display: none; }
 @media (pointer: coarse), (hover: none) {
+    html, body { overscroll-behavior: none; }
+    /* Allow rapid control taps without double-tap zoom; preserve pinch zoom. */
+    .animation-controls button { touch-action: manipulation; }
     #animationHelp .keyboard-help { display: none; }
     #animationHelp .control-action { min-height: 44px; padding: 10px 4px; }
     .touch-stepper { display: flex; gap: 8px; margin: 6px 0 12px; }
