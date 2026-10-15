@@ -11,7 +11,9 @@
     const pauseButton = document.getElementById('pauseAnimation');
     const controlsButton = document.getElementById('toggleControls');
     const helpPanel = document.getElementById('animationHelp');
-    const status = document.getElementById('animationStatus');
+    const speedValue = document.getElementById('speedValue');
+    const dimensionsValue = document.getElementById('dimensionsValue');
+    const frameRateValue = document.getElementById('frameRateValue');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const frameRates = [60, 30, 15];
     const animationScale = 1.5;
@@ -28,9 +30,9 @@
     let rotationDirection = 1;
     let cubeOpacity = .8;
     let opacityIncreasing = false;
-    let dimensionIndex = 0;
+    let dimensionIndex = 2;
     let manualDimensions = false;
-    let animationRate = .1;
+    let animationRate = .025;
     let frameRateIndex = 0;
     let isPaused = reducedMotion.matches;
     let animationFrame = null;
@@ -38,7 +40,9 @@
 
     function updateControls() {
         pauseButton.textContent = isPaused ? 'Play animation' : 'Pause animation';
-        status.textContent = `Speed: ${animationRate.toFixed(2)} · Pattern: ${dimensionIndex + 1}/8 · ${frameRates[frameRateIndex]} fps`;
+        speedValue.textContent = animationRate.toFixed(3);
+        dimensionsValue.textContent = dimensions[dimensionIndex].join(' × ');
+        frameRateValue.textContent = `${frameRates[frameRateIndex]} fps`;
     }
 
     function redraw() {
@@ -133,15 +137,25 @@
     function toggleHelp() {
         helpPanel.hidden = !helpPanel.hidden;
         controlsButton.setAttribute('aria-expanded', String(!helpPanel.hidden));
+        controlsButton.blur();
         updateControls();
     }
 
     document.addEventListener('keydown', (event) => {
+        if (event.key === ' ' && !helpPanel.hidden && !event.ctrlKey && !event.metaKey && !event.altKey && !event.target.closest('input, textarea, select, [contenteditable]')) {
+            event.preventDefault();
+            if (!event.repeat) togglePause();
+            return;
+        }
         if (event.ctrlKey || event.metaKey || event.altKey || event.target.closest('input, textarea, select, button, a, [contenteditable]')) return;
         const key = event.key.toLowerCase();
         if (![' ', 'escape', 'x', 'z', 'c', 'arrowleft', 'arrowright', 'arrowup', 'arrowdown', '/'].includes(key)) return;
         event.preventDefault();
         if (event.repeat && !['arrowup', 'arrowdown'].includes(key)) return;
+        performAction(key);
+    });
+
+    function performAction(key) {
         switch (key) {
             case ' ': togglePause(); break;
             case 'escape': toggleHelp(); break;
@@ -150,16 +164,28 @@
             case 'c': depthOffset = 0; rotation = 0; break;
             case 'arrowleft': manualDimensions = true; dimensionIndex = (dimensionIndex + 7) % 8; break;
             case 'arrowright': manualDimensions = true; dimensionIndex = (dimensionIndex + 1) % 8; break;
-            case 'arrowup': animationRate = Math.min(1.2, animationRate + .05); break;
-            case 'arrowdown': animationRate = Math.max(.05, animationRate - .05); break;
+            case 'arrowup': animationRate = Math.min(1, Math.round((animationRate === .01 ? .025 : animationRate + .025) * 1000) / 1000); break;
+            case 'arrowdown': animationRate = Math.max(.01, Math.round((animationRate - .025) * 1000) / 1000); break;
             case '/': frameRateIndex = (frameRateIndex + 1) % 3; break;
         }
         updateControls();
         redraw();
-    });
+    }
 
+    helpPanel.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-action]');
+        if (!button) return;
+        performAction(button.dataset.action);
+        button.blur();
+    });
     pauseButton.addEventListener('click', togglePause);
     controlsButton.addEventListener('click', toggleHelp);
+    document.addEventListener('click', (event) => {
+        if (!helpPanel.hidden && !helpPanel.contains(event.target) && !controlsButton.contains(event.target)) {
+            helpPanel.hidden = true;
+            controlsButton.setAttribute('aria-expanded', 'false');
+        }
+    });
     window.addEventListener('resize', resize);
     document.addEventListener('visibilitychange', synchronizeAnimation);
     reducedMotion.addEventListener('change', () => {

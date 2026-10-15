@@ -7,10 +7,10 @@ body { margin: 0; min-height: 100vh; min-height: 100svh; display: grid; place-it
 .animation-layer { z-index: -1; opacity: .32; }
 canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 main { max-width: 850px; text-shadow: 0 2px 12px #000; }
-h1 { margin: 10px 0; font-size: clamp(2rem, 6vw, 3rem); color: rgba(255, 255, 255, .65); }
+h1 { margin: 10px 0; font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: clamp(2rem, 6vw, 3rem); color: rgba(255, 255, 255, .65); }
 .locations { margin: 12px 0 36px; font-size: clamp(.82rem, 2.6vw, 1rem); line-height: 1.7; }
 .locations span { white-space: nowrap; }
-.content p { margin: 8px 0; line-height: 1.65; }
+.content p { margin: 8px 0; font-size: 1.125rem; line-height: 1.65; }
 .music, .music a { color: rgba(237, 253, 253, .85); }
 .farming, .farming a { color: rgba(237, 225, 205, .85); }
 .farming { margin-top: 42px; }
@@ -18,7 +18,28 @@ a { text-decoration: none; overflow-wrap: anywhere; }
 a:hover { text-decoration: underline; }
 a:focus-visible, button:focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
 .animation-controls { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); width: max-content; max-width: calc(100% - 24px); z-index: 2; }
-button { font: inherit; font-size: .78rem; color: #e0e0e0; background: rgba(0, 0, 0, .7); border: 1px solid #777; border-radius: 6px; padding: 9px 12px; min-height: 40px; cursor: pointer; }
-#animationHelp { position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); width: 440px; max-width: calc(100vw - 24px); background: rgba(0, 0, 0, .94); border: 1px solid #555; border-radius: 8px; padding: 12px; font-size: .75rem; line-height: 1.6; }
+button { font: inherit; font-size: .78rem; letter-spacing: .03em; color: rgba(255, 255, 255, .7); background: transparent; border: 1px solid transparent; border-radius: 20px; padding: 9px 14px; min-height: 44px; text-shadow: 0 1px 6px #000; cursor: pointer; }
+button:hover, button[aria-expanded="true"] { color: #fff; background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .15); }
+button:active { background: rgba(255, 255, 255, .12); }
+#animationHelp { position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); width: 220px; max-width: calc(100vw - 24px); background: linear-gradient(145deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02)), rgba(12, 16, 18, .88); border: 1px solid rgba(255, 255, 255, .18); border-radius: 12px; box-shadow: 0 12px 36px rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 255, 255, .08); padding: 12px; color: #ddd; font-size: .75rem; line-height: 1.6; }
+@supports ((backdrop-filter: blur(16px)) or (-webkit-backdrop-filter: blur(16px))) {
+    #animationHelp { background: linear-gradient(145deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02)), rgba(12, 16, 18, .58); -webkit-backdrop-filter: blur(16px) saturate(120%); backdrop-filter: blur(16px) saturate(120%); }
+}
 #animationHelp p { margin: 5px 0; }
+.control-row { display: flex; justify-content: space-between; gap: 16px; text-align: left; }
+.control-row span:last-child { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 [hidden] { display: none !important; }
+
+#animationHelp kbd { font: inherit; font-weight: 700; color: #eee; }
+#animationHelp > p { text-align: left; }
+
+#animationHelp { max-height: calc(100svh - 100px); overflow-y: auto; }
+#animationHelp .control-action { display: block; width: 100%; min-height: 32px; padding: 5px 0; border-radius: 6px; font-size: inherit; letter-spacing: normal; text-align: left; color: inherit; }
+#animationHelp .control-action.control-row { display: flex; }
+.touch-stepper { display: none; }
+@media (pointer: coarse), (hover: none) {
+    #animationHelp .keyboard-help { display: none; }
+    #animationHelp .control-action { min-height: 44px; padding: 10px 4px; }
+    .touch-stepper { display: flex; gap: 8px; margin: 6px 0 12px; }
+    .touch-stepper button { flex: 1; min-width: 44px; min-height: 44px; background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .15); font-size: 1rem; border-radius: 8px; }
+}

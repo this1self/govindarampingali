@@ -9,7 +9,7 @@
     <meta property="og:url" content="https://govindarampingali.com/">
     <title>Govinda Ram Pingali</title>
     <link rel="icon" href="favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="js/background-animation.js" defer></script>
 </head>
@@ -38,10 +38,26 @@
         <button id="pauseAnimation" type="button">Pause animation</button>
         <button id="toggleControls" type="button" aria-expanded="false" aria-controls="animationHelp">Controls</button>
         <div id="animationHelp" hidden>
-            <p>Space: pause / play · ↑ / ↓: speed · ← / →: pattern</p>
-            <p>X: reverse rotation · Z: reverse depth · C: reset</p>
-            <p>/: cycle 60 / 30 / 15 fps · Esc: show / hide controls</p>
-            <p id="animationStatus" role="status"></p>
+            <p class="keyboard-help"><kbd>Space</kbd>: Pause / Play</p>
+            <p class="keyboard-help"><kbd>Esc</kbd>: Show / hide controls</p>
+            <div class="touch-adjustment">
+                <p class="control-row"><span><span class="keyboard-help"><kbd>↑ / ↓</kbd>: </span>Speed</span><span id="speedValue" role="status"></span></p>
+                <div class="touch-stepper">
+                    <button type="button" data-action="arrowdown" aria-label="Decrease speed">−</button>
+                    <button type="button" data-action="arrowup" aria-label="Increase speed">+</button>
+                </div>
+            </div>
+            <div class="touch-adjustment">
+                <p class="control-row"><span><span class="keyboard-help"><kbd>← / →</kbd>: </span>Dimensions</span><span id="dimensionsValue" role="status"></span></p>
+                <div class="touch-stepper">
+                    <button type="button" data-action="arrowleft" aria-label="Previous dimensions">←</button>
+                    <button type="button" data-action="arrowright" aria-label="Next dimensions">→</button>
+                </div>
+            </div>
+            <button class="control-action" type="button" data-action="x"><span class="keyboard-help"><kbd>x</kbd>: </span>Reverse rotation</button>
+            <button class="control-action" type="button" data-action="z"><span class="keyboard-help"><kbd>z</kbd>: </span>Reverse depth</button>
+            <button class="control-action" type="button" data-action="c"><span class="keyboard-help"><kbd>c</kbd>: </span>Reset</button>
+            <button class="control-action control-row" type="button" data-action="/"><span><span class="keyboard-help"><kbd>/</kbd>: </span>Frame rate</span><span id="frameRateValue" role="status"></span></button>
         </div>
     </div>
 </body>
