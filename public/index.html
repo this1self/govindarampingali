@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Personal website of Govinda Ram Pingali, featuring music as This Ego, and permaculture.">
+    <meta property="og:title" content="Govinda Ram Pingali">
+    <meta property="og:description" content="Explore music, permaculture, and creative work.">
+    <meta property="og:url" content="https://govindarampingali.com/">
+    <title>Govinda Ram Pingali</title>
+    <link rel="icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="js/background-animation.js" defer></script>
+</head>
+<body>
+    <div class="background" aria-hidden="true"></div>
+    <div class="overlay" aria-hidden="true"></div>
+    <div class="animation-layer" aria-hidden="true">
+        <canvas id="cubeCanvas"></canvas>
+        <canvas id="circleCanvas"></canvas>
+    </div>
+    <main>
+        <h1>Govinda Ram Pingali</h1>
+        <p class="locations"><span>Oakland, CA, USA</span> / <span>Kavanapura, KA, India</span></p>
+        <div class="content">
+            <section class="music" aria-label="Music">
+                <p>I make music as 'This Ego'. Check out my SoundCloud:</p>
+                <p><a href="https://soundcloud.com/this-ego" target="_blank" rel="noopener noreferrer">https://soundcloud.com/this-ego</a></p>
+            </section>
+            <section class="farming" aria-label="Permaculture">
+                <p>I work in Permaculture. Check out our farm in South India:</p>
+                <p><a href="https://www.pgr.earth" target="_blank" rel="noopener noreferrer">https://www.pgr.earth</a></p>
+            </section>
+        </div>
+    </main>
+    <div class="animation-controls" hidden>
+        <button id="pauseAnimation" type="button">Pause animation</button>
+        <button id="toggleControls" type="button" aria-expanded="false" aria-controls="animationHelp">Controls</button>
+        <div id="animationHelp" hidden>
+            <p>Space: pause / play · ↑ / ↓: speed · ← / →: pattern</p>
+            <p>X: reverse rotation · Z: reverse depth · C: reset</p>
+            <p>/: cycle 60 / 30 / 15 fps · Esc: show / hide controls</p>
+            <p id="animationStatus" role="status"></p>
+        </div>
+    </div>
+</body>
+</html>
